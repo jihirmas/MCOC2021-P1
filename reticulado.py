@@ -38,7 +38,7 @@ class Reticulado(object):
     def calcular_peso_total(self):
         
         peso_total=0
-        for i in barras:
+        for i in self.barras:
             peso_total+= i.calcular_peso(self)
         return peso_total
 
