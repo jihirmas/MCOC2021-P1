@@ -1,5 +1,5 @@
 import numpy as np
-
+#ahoraSi
 from constantes import g_, ρ_acero, E_acero
 
 
