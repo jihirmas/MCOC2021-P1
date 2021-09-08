@@ -9,10 +9,10 @@ class Circular(object):
         """Implementar"""	
 
     def area(self):
+        A = (((self.D)**2)*pi/4) - (((self.Dint)**2)*pi/4)
+            
         
-        """Implementar"""	
-        
-        return 0
+        return A
 
     def peso(self):
 
