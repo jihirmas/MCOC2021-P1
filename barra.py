@@ -21,10 +21,14 @@ class Barra(object):
         xi : Arreglo numpy de dimenson (3,) con coordenadas del nodo i
         xj : Arreglo numpy de dimenson (3,) con coordenadas del nodo j
         """
-        
-        """Implementar"""	
-        
-        return 0
+
+        ni=self.ni
+        nj=self.nj
+
+        ni=reticulado.xyz[ni,:]
+        nj=reticulado.xyz[nj,:]
+
+        return abs(ni-nj)
 
     def calcular_peso(self, reticulado):
         """Devuelve el largo de la barra. 
