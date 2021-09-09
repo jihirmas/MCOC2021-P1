@@ -1,16 +1,17 @@
 import numpy as np
-#ahoraSi
+
 from constantes import g_, ρ_acero, E_acero
 
 
 class Barra(object):
 
     """Constructor para una barra"""
-    def __init__(self, ni, nj, seccion):
+    def __init__(self, ni, nj, seccion, color=np.random.rand(3)):
         super(Barra, self).__init__()
         self.ni = ni
         self.nj = nj
         self.seccion = seccion
+        self.color = color
 
 
     def obtener_conectividad(self):
@@ -21,14 +22,16 @@ class Barra(object):
         xi : Arreglo numpy de dimenson (3,) con coordenadas del nodo i
         xj : Arreglo numpy de dimenson (3,) con coordenadas del nodo j
         """
-        ni=self.ni
-        nj=self.nj
         
-        ni=reticulado.xyz[ni,:]
-        nj=reticulado.xyz[nj,:]    
-        
-        largo = abs(ni-nj)
-        return np.sqrt(np.dot(largo,largo))
+        ni = self.ni
+        nj = self.nj
+
+        xi = reticulado.xyz[ni,:]
+        xj = reticulado.xyz[nj,:]
+
+        print(f"Barra {ni} a {nj} xi = {xi} xj = {xj}")
+
+        return 0
 
     def calcular_peso(self, reticulado):
         """Devuelve el largo de la barra. 
@@ -36,11 +39,9 @@ class Barra(object):
         xj : Arreglo numpy de dimenson (3,) con coordenadas del nodo j
         """
         
-        """Implementar"""    
-        Area = self.seccion.area()
-        largo = self.calcular_largo(reticulado)
-        ro = ρ_acero
-        return Area*largo*ro*g_
+        """Implementar"""	
+        
+        return 0
 
 
 
