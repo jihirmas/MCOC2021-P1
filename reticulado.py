@@ -134,8 +134,8 @@ class Reticulado(object):
         contador = 0
         s = "nodos:"
         s += "\n"
-        for i in NODOS:
-            s += "     "+str(contador)+" : "+str(tuple(i))+"\n"
+        for i in range(self.Nnodos):
+            s += "     "+str(i)+" : "+str(tuple(NODOS[i]))+"\n"
             contador += 1
         BARRAS = self.obtener_barras()
         contador = 0
