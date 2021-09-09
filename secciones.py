@@ -6,6 +6,9 @@ class Circular(object):
 
     def __init__(self, D, Dint):
         super(Circular, self).__init__()
+        self.D=D
+        self.Dint=Dint
+        
         """Implementar"""	
 
     def area(self):
