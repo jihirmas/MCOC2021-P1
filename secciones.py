@@ -14,8 +14,8 @@ class Circular(object):
     def area(self):
         return pi*(self.D**2 - self.Dint**2)/4
 
-    def peso(self):
-        return self.area()*ρ_acero*g
+   # def peso(self):
+    #    return self.area()*ρ_acero*g
 
     def inercia_xx(self):
         return pi*(self.D**4 - self.Dint**4)/4

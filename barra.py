@@ -16,32 +16,38 @@ class Barra(object):
 
     def obtener_conectividad(self):
         return [self.ni, self.nj]
+    
 
     def calcular_largo(self, reticulado):
-        """Devuelve el largo de la barra. 
-        xi : Arreglo numpy de dimenson (3,) con coordenadas del nodo i
-        xj : Arreglo numpy de dimenson (3,) con coordenadas del nodo j
-        """
+         """Devuelve el largo de la barra. 
+         xi : Arreglo numpy de dimenson (3,) con coordenadas del nodo i
+         xj : Arreglo numpy de dimenson (3,) con coordenadas del nodo j
+         """
+         ni=self.ni
+         nj=self.nj
+         
+         ni=reticulado.xyz[ni,:]
+         nj=reticulado.xyz[nj,:]    
+         
+         largo = abs(ni-nj)
+         return np.sqrt(np.dot(largo,largo))
+     
         
-        ni = self.ni
-        nj = self.nj
-
-        xi = reticulado.xyz[ni,:]
-        xj = reticulado.xyz[nj,:]
-
-        print(f"Barra {ni} a {nj} xi = {xi} xj = {xj}")
-
-        return 0
+     
+        
 
     def calcular_peso(self, reticulado):
-        """Devuelve el largo de la barra. 
-        xi : Arreglo numpy de dimenson (3,) con coordenadas del nodo i
-        xj : Arreglo numpy de dimenson (3,) con coordenadas del nodo j
-        """
-        
-        """Implementar"""	
-        
-        return 0
+       """Devuelve el largo de la barra. 
+       xi : Arreglo numpy de dimenson (3,) con coordenadas del nodo i
+       xj : Arreglo numpy de dimenson (3,) con coordenadas del nodo j
+       """
+       
+       """Implementar"""    
+       Area = self.seccion.area()
+       largo = self.calcular_largo(reticulado)
+       ro = ρ_acero
+       return Area*largo*ro*g_
+   
 
 
 
