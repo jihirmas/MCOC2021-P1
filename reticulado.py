@@ -48,13 +48,13 @@ class Reticulado(object):
         
         """Implementar"""	
         
-        return 0
+        return self.xyz[0:self.Nnodos,:].copy()
 
     def obtener_barras(self):
         
         """Implementar"""	
         
-        return 0
+        return self.barras
 
 
 
@@ -126,5 +126,8 @@ class Reticulado(object):
 
 
     def __str__(self):
-
+        BARRAS = self.obtener_barras()
+        print(BARRAS[0].calcular_largo(self))
+        print(BARRAS[1].calcular_largo(self))
+        print(BARRAS[2].calcular_largo(self))
         return "Soy un reticulado :)"
