@@ -130,10 +130,20 @@ class Reticulado(object):
 
     def __str__(self):
 
-        s = "Soy un reticulado :)"
-
+        NODOS = self.obtener_nodos()
+        contador = 0
+        s = "nodos:"
         s += "\n"
+        for i in NODOS:
+            s += "     "+str(contador)+" : "+str(tuple(i))+"\n"
+            contador += 1
+        BARRAS = self.obtener_barras()
+        contador = 0
+        s += "\n"
+        s += "\n"
+        s += "barras:\n"
+        for j in BARRAS:
+            s += "     "+str(contador)+" : "+"[ "+str(j.ni)+" "+str(j.nj)+" ]"+"\n"
+            contador += 1
         
-        s += str(self.xyz[0 : self.Nnodos,:])
-
         return s
