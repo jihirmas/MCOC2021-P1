@@ -130,12 +130,10 @@ class Reticulado(object):
         for i in range(self.Nnodos):
             s += "     "+str(i)+" : "+str(tuple(NODOS[i]))+"\n"
         BARRAS = self.obtener_barras()
-        contador = 0
         s += "\n"
         s += "\n"
         s += "barras:\n"
-        for j in BARRAS:
-            s += "     "+str(contador)+" : "+"[ "+str(j.ni)+" "+str(j.nj)+" ]"+"\n"
-            contador += 1
-        
+        for j in range(len(BARRAS)):
+            s += "     "+str(j)+" : "+"[ "+str(BARRAS[j].ni)+" "+str(BARRAS[j].nj)+" ]"+"\n"
+        s += "\n"
         return s
