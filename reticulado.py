@@ -1,3 +1,4 @@
+
 import numpy as np
 from scipy.linalg import solve
 
@@ -5,59 +6,57 @@ class Reticulado(object):
     """Define un reticulado"""
     __NNodosInit__ = 100
 
-    #constructor
     def __init__(self):
         super(Reticulado, self).__init__()
-        
-        print("Constructor de Reticulado")
-        
         self.xyz = np.zeros((Reticulado.__NNodosInit__,3), dtype=np.double)
         self.Nnodos = 0
         self.barras = []
+        self.Ndimensiones = 2
         self.cargas = {}
         self.restricciones = {}
-        """Implementar"""	
         
-
 
     def agregar_nodo(self, x, y, z=0):
-        
-        """Implementar"""	
-
-        print(f"Quiero agregar un nodo en ({x} {y} {z})")
-        numero_de_nodo_actual = self.Nnodos
-
-        self.xyz[numero_de_nodo_actual,:] = [x, y, z]
-
+        if self.Nnodos+1 > Reticulado.__NNodosInit__:
+            self.xyz.resize((self.Nnodos+1,3))
+        self.xyz[self.Nnodos,:] = [x, y, z]
         self.Nnodos += 1
-        
-        return 0
+        if z != 0.:
+            self.Ndimensiones = 3
+            
+
+
 
     def agregar_barra(self, barra):
+        self.barras.append(barra)
         
-        self.barras.append(barra)        
-        
-        return 0
+
 
     def obtener_coordenada_nodal(self, n):
         
-        """Implementar"""	
-        
-        return 0
+        return self.xyz[n,:]
+
 
     def calcular_peso_total(self):
         
+        peso_total=0
+        for i in self.barras:
+            peso_total+= i.calcular_peso(self)
+        return peso_total
+
+
+
+    def obtener_nodos(self):
+        
         """Implementar"""	
         
         return 0
 
-    def obtener_nodos(self):
-        
-        return self.xyz
-
     def obtener_barras(self):
         
-        return self.barras
+        """Implementar"""	
+        
+        return 0
 
 
 
@@ -74,7 +73,7 @@ class Reticulado(object):
         return 0
 
 
-    def ensamblar_sistema(self, factor_peso_propio=0.):
+    def ensamblar_sistema(self):
         
         """Implementar"""	
         
@@ -130,20 +129,4 @@ class Reticulado(object):
 
     def __str__(self):
 
-        NODOS = self.obtener_nodos()
-        contador = 0
-        s = "nodos:"
-        s += "\n"
-        for i in range(self.Nnodos):
-            s += "     "+str(i)+" : "+str(tuple(NODOS[i]))+"\n"
-            contador += 1
-        BARRAS = self.obtener_barras()
-        contador = 0
-        s += "\n"
-        s += "\n"
-        s += "barras:\n"
-        for j in BARRAS:
-            s += "     "+str(contador)+" : "+"[ "+str(j.ni)+" "+str(j.nj)+" ]"+"\n"
-            contador += 1
-        
-        return s
+        return "Soy un reticulado :)"
