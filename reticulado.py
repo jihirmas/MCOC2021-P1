@@ -48,15 +48,11 @@ class Reticulado(object):
 
     def obtener_nodos(self):
         
-        """Implementar"""	
-        
-        return 0
+        return self.xyz
 
     def obtener_barras(self):
         
-        """Implementar"""	
-        
-        return 0
+        return self.barras
 
 
 
