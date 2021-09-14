@@ -58,22 +58,53 @@ class Reticulado(object):
 
     def agregar_restriccion(self, nodo, gdl, valor=0.0):
         
-        """Implementar"""	
-        
-        return 0
+        if nodo not in self.restricciones:
+            self.restricciones[nodo] = [[gdl, valor]]
+        else:
+            self.restricciones[nodo].append([gdl, valor])
+
 
     def agregar_fuerza(self, nodo, gdl, valor):
         
-        """Implementar"""	
-        
-        return 0
+        if nodo not in self.cargas:
+            self.cargas[nodo] = [[gdl, valor]]
+        else:
+            self.cargas[nodo].append([gdl, valor])
 
+    def ensamblar_sistema(self, factor_peso_propio=0.):
+        if factor_peso_propio==0.:
+            factor_peso_propio=[0.,0.,0.]
+        
+        tamano=self.Nnodos*self.Ndimensiones
+        self.K=np.zeros((tamano,tamano),dtype=np.double)
+        self.f=np.zeros(tamano)
+        self.u = np.zeros((tamano), dtype=np.double)
+        for barr in self.barras:
+            
+            ni,nj = barr.obtener_conectividad()
+            k_chica= barr.obtener_rigidez(self)
+            
+            
+            peso_barra= barr.calcular_peso(self)
 
-    def ensamblar_sistema(self):
-        
-        """Implementar"""	
-        
-        return 0
+            self.agregar_fuerza(ni,1,-peso_barra/2.0*factor_peso_propio[1])
+            self.agregar_fuerza(nj,1,-peso_barra/2.0*factor_peso_propio[1])
+            f_chica= barr.obtener_fuerza(self)
+            
+
+            
+            if self.Ndimensiones ==2:
+                pos_i= [ni*2,ni*2+1,nj*2,nj*2+1]
+            elif self.Ndimensiones ==3:
+                pos_i= [ni*3,ni*3+1, ni*3+2 ,nj*3,nj*3+1,nj*3+2]
+                
+            for i in range(self.Ndimensiones*2):
+                p = pos_i[i]
+
+                for j in range(self.Ndimensiones*2):
+                    q = pos_i[j]
+                    self.K[p,q] += k_chica[i,j]
+                self.f[p] = f_chica[i]
 
 
 
