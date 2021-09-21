@@ -32,6 +32,7 @@ class Barra(object):
          largo = abs(ni-nj)
          return np.sqrt(np.dot(largo,largo))
      
+     
         
      
         
@@ -54,22 +55,61 @@ class Barra(object):
 
     def obtener_rigidez(self, ret):
         
-        """Implementar"""	
         
-        return 0
+        L=self.calcular_largo(ret)
+        
+        xi = ret.obtener_coordenada_nodal(self.ni)
+        xj = ret.obtener_coordenada_nodal(self.nj) 
+        
+        Lx=abs((xi[0]-xj[0]))
+        Ly=abs((xi[1]-xj[1]))
+        Lz=abs((xi[2]-xj[2]))
+        
+        cosθx= Lx/L
+        cosθy=Ly/L
+        cosθz=Lz/L
+        
+        
+        T = np.array([-cosθx,-cosθy,-cosθz,cosθx,cosθy,cosθz])
+        
+        
+        ke=self.seccion.area()*E_acero/L*T.T@T
+        
+        return ke
+    
 
     def obtener_vector_de_cargas(self, ret):
         
-        """Implementar"""	
         
-        return 0
+        W = self.calcular_peso(ret)
 
+        return -W/2*np.array([0,1,0,1])
+        
+        
 
     def obtener_fuerza(self, ret):
         
-        """Implementar"""	
+        L=self.calcular_largo(ret)
         
-        return 0
+        xi = ret.obtener_coordenada_nodal(self.ni)
+        xj = ret.obtener_coordenada_nodal(self.nj) 
+        
+        Lx=abs((xi[0]-xj[0]))
+        Ly=abs((xi[1]-xj[1]))
+        Lz=abs((xi[2]-xj[2]))
+        
+        cosθx= Lx/L
+        cosθy=Ly/L
+        cosθz=Lz/L
+        
+        T = np.array([-cosθx,-cosθy,-cosθz,cosθx,cosθy,cosθz])
+        A = self.seccion.area()
+        u = ret.u
+        ni=self.ni
+        nj=self.nj
+        u_e = np.array([u[3*ni],u[3*ni+1],u[3*ni+2],u[3*nj],u[3*nj+1],u[3*nj+2]])
+        se= A*E_acero/L*T*u_e
+        return se
 
 
 
@@ -96,5 +136,4 @@ class Barra(object):
         """Implementar"""	
         
         return 0
-
 
