@@ -184,7 +184,6 @@ class Reticulado(object):
         for i in range(self.Nnodos):
             lis.remove(i)
         self.xyz = np.delete(self.xyz,lis,axis=0)
-        print(list(self.f))
         
         return 0
 
@@ -248,13 +247,20 @@ class Reticulado(object):
         s += "\n"
         s += "restricciones:\n"
         for nodo in self.restricciones:
-            s += f"    {nodo} : {self.restricciones[nodo]}\n"
+            if len(self.restricciones[nodo]) != 0:
+                s += f"    {nodo} : {self.restricciones[nodo]}\n"
         s += "\n\n"
         
-        s += "cargas:\n"
+        contador = 0
         for nodo in self.cargas:
-            s += f"    {nodo} : {self.cargas[nodo]}\n"
-        s += "\n\n"
+            if len(self.cargas[nodo]) != 0:
+                contador += 1
+        if contador != 0:
+            s += "cargas:\n"
+            for nodo in self.cargas:
+                if len(self.cargas[nodo]) != 0:
+                    s += f"    {nodo} : {self.cargas[nodo]}\n"
+            s += "\n\n"
         if self.has_solution:
             s += "desplazamientos:\n"
             for n in range(self.Nnodos):
