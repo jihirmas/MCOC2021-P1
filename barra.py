@@ -61,20 +61,19 @@ class Barra(object):
         xi = ret.obtener_coordenada_nodal(self.ni)
         xj = ret.obtener_coordenada_nodal(self.nj) 
         
-        Lx=abs((xi[0]-xj[0]))
-        Ly=abs((xi[1]-xj[1]))
-        Lz=abs((xi[2]-xj[2]))
+        Lx=((xj[0]-xi[0]))
+        Ly=((xj[1]-xi[1]))
+        Lz=((xj[2]-xi[2]))
         
         cosθx= Lx/L
         cosθy=Ly/L
         cosθz=Lz/L
         
         
-        T = np.array([[-cosθx,-cosθy,-cosθz,cosθx,cosθy,cosθz]])
+        T = np.array([-cosθx,-cosθy,-cosθz,cosθx,cosθy,cosθz]).reshape((6,1))
         
         
-        ke=self.seccion.area()*E_acero/L*(T.T@T)
-        
+        ke=self.seccion.area()*E_acero/L*(T@T.T)
         return ke
     
 

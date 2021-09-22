@@ -75,7 +75,7 @@ class Reticulado(object):
     def ensamblar_sistema(self, factor_peso_propio=0.):
         if factor_peso_propio==0.:
             factor_peso_propio=[0.,0.,0.]
-        
+        self.fpp = factor_peso_propio*2
         tamano=self.Nnodos*self.Ndimensiones
         self.K=np.zeros((tamano,tamano),dtype=np.double)
         self.f=np.zeros(tamano)
@@ -273,5 +273,4 @@ class Reticulado(object):
             for b in range(len(self.barras)):
                 s += f"    {b} : {f[b]}\n"
         s += "\n"
-        s += f"Ndimensiones = {self.Ndimensiones}"
         return s
