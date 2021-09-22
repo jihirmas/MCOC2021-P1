@@ -20,6 +20,8 @@ class Reticulado(object):
         if self.Nnodos+1 > Reticulado.__NNodosInit__:
             self.xyz.resize((self.Nnodos+1,3))
         self.xyz[self.Nnodos,:] = [x, y, z]
+        self.restricciones[self.Nnodos]=[] 
+        self.cargas[self.Nnodos]=[]  
         self.Nnodos += 1
 
 
@@ -101,32 +103,109 @@ class Reticulado(object):
                     self.K[p,q] += k_chica[i,j]
 
                 self.f[p] += f_chica[i]
-        for i in self.cargas:
+        for i in range(self.Nnodos):
             for car in self.cargas[i]:
-                self.f[i*3+car[0]] = car[1]
-                
-
-
-
-
+                if len(car) > 0:
+                    self.f[i*3+car[0]] = car[1]
+        self.F = self.f
     def resolver_sistema(self):
         
-        """Implementar"""	
+        # 0 : Aplicar restricciones
+        Ngdl = self.Nnodos * self.Ndimensiones
+        gdl_libres = np.arange(Ngdl)
+        gdl_restringidos = []
+
+        #Pre-llenar el vector u
+
+        for nodo in self.restricciones:
+            for restriccion in self.restricciones[nodo]:
+                gdl = restriccion[0]
+                valor = restriccion[1]
+
+                gdl_global = self.Ndimensiones*nodo + gdl
+                self.u[gdl_global] = valor
+
+                gdl_restringidos.append(gdl_global)
+
+        # con gdl_restringidos encuentro  gdl_libres
+        gdl_restringidos = np.array(gdl_restringidos)
+        gdl_libres = np.setdiff1d(gdl_libres, gdl_restringidos)
+
+    
+        for nodo in self.cargas:
+            for carga in self.cargas[nodo]:
+                gdl = carga[0]
+                valor = carga[1]
+
+                gdl_global = self.Ndimensiones*nodo + gdl
+                self.f[gdl_global] = valor
+
+        #1 Particionar:
+        """
+        Kff = self.K[np.ix_(gdl_libres, gdl_libres)]
+        Kcc = self.K[np.ix_(gdl_restringidos, gdl_restringidos)]
+        Kcf = self.K[np.ix_(gdl_restringidos, gdl_libres)]
+        Kfc = self.K[np.ix_(gdl_libres, gdl_restringidos)]
+ 
+        uf = self.u[gdl_libres]
+        uc = self.u[gdl_restringidos]
+
+        ff = self.f[gdl_libres] - Kfc@uc
+        fc = self.f[gdl_restringidos]
+
+        # Solucionar Kff uf = ff
+
+        self.u[gdl_libres] = solve(Kff, ff)
+        R = Kcf@uf+Kcc@uc-fc
+        """
+        Kff = self.K[np.ix_(gdl_libres, gdl_libres)]
+        Kfc = self.K[np.ix_(gdl_libres, gdl_restringidos)]
+        Kcf = Kfc.T
+        Kcc = self.K[np.ix_(gdl_restringidos, gdl_restringidos)]
+ 
+        uf = self.u[gdl_libres]
+        uc = self.u[gdl_restringidos]
+
+        ff = self.f[gdl_libres]
+        fc = self.f[gdl_restringidos]
+
+        # Solucionar Kff uf = ff
+        
+        uf = solve(Kff, ff - Kfc @ uc)
+        R = Kcf@uf+Kcc@uc-fc
+        self.R = R
+        self.Kff = Kff
+        self.Kcc = Kcc
+        self.Kfc = Kfc
+        self.Kcf = Kcf
+        self.u[gdl_libres] = uf
+        self.has_solution = True
+        lis = []
+        for i in range(self.__NNodosInit__):
+            lis.append(i)
+        for i in range(self.Nnodos):
+            lis.remove(i)
+        self.xyz = np.delete(self.xyz,lis,axis=0)
+        print(list(self.f))
         
         return 0
 
     def obtener_desplazamiento_nodal(self, n):
         
-        """Implementar"""	
-        
-        return 0
+        dofs = [3*n, 3*n+1, 3*n+2]
+        return self.u[dofs]
+        # return 0
 
 
     def obtener_fuerzas(self):
         
-        """Implementar"""	
-        
-        return 0
+        fuerzas = np.zeros(len(self.barras))
+        contador = 0
+        for i in self.barras:
+            fuerzas[contador] = i.obtener_fuerza(self)
+            contador += 1
+
+        return fuerzas
 
 
     def obtener_factores_de_utilizacion(self, f):

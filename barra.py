@@ -83,7 +83,7 @@ class Barra(object):
         
         W = self.calcular_peso(ret)
 
-        return -W/2*np.array([0,1,0,1])
+        return -W/2*np.array([0,1,0,0,1,0])
         
         
 
