@@ -177,7 +177,6 @@ class Reticulado(object):
         self.Kfc = Kfc
         self.Kcf = Kcf
         self.u[gdl_libres] = uf
-        self.has_solution = True
         lis = []
         for i in range(self.__NNodosInit__):
             lis.append(i)
@@ -261,16 +260,16 @@ class Reticulado(object):
                 if len(self.cargas[nodo]) != 0:
                     s += f"    {nodo} : {self.cargas[nodo]}\n"
             s += "\n\n"
-        if self.has_solution:
-            s += "desplazamientos:\n"
-            for n in range(self.Nnodos):
-                s += f"    {n} : ( {self.obtener_desplazamiento_nodal(n)}) \n "
+
+        s += "desplazamientos:\n"
+        for n in range(self.Nnodos):
+            s += f"    {n} : ( {self.obtener_desplazamiento_nodal(n)}) \n "
         s += "\n\n"
 
-        if self.has_solution:
-            f = self.obtener_fuerzas()
-            s += "fuerzas:\n"
-            for b in range(len(self.barras)):
-                s += f"    {b} : {f[b]}\n"
+
+        f = self.obtener_fuerzas()
+        s += "fuerzas:\n"
+        for b in range(len(self.barras)):
+            s += f"    {b} : {f[b]}\n"
         s += "\n"
         return s
