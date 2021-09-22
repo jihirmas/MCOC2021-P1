@@ -4,7 +4,7 @@ from scipy.linalg import solve
 
 class Reticulado(object):
     """Define un reticulado"""
-    __NNodosInit__ = 100
+    __NNodosInit__ = 1
 
     def __init__(self):
         super(Reticulado, self).__init__()
@@ -75,7 +75,6 @@ class Reticulado(object):
     def ensamblar_sistema(self, factor_peso_propio=0.):
         if factor_peso_propio==0.:
             factor_peso_propio=[0.,0.,0.]
-        self.fpp = factor_peso_propio*2
         tamano=self.Nnodos*self.Ndimensiones
         self.K=np.zeros((tamano,tamano),dtype=np.double)
         self.f=np.zeros(tamano)
@@ -178,11 +177,11 @@ class Reticulado(object):
         self.Kcf = Kcf
         self.u[gdl_libres] = uf
         lis = []
-        for i in range(self.__NNodosInit__):
-            lis.append(i)
-        for i in range(self.Nnodos):
-            lis.remove(i)
-        self.xyz = np.delete(self.xyz,lis,axis=0)
+        # for i in range(self.__NNodosInit__):
+        #     lis.append(i)
+        # for i in range(self.Nnodos):
+        #     lis.remove(i)
+        # self.xyz = np.delete(self.xyz,lis,axis=0)
         
         return 0
 
