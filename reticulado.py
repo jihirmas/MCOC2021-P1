@@ -81,14 +81,14 @@ class Reticulado(object):
         self.u = np.zeros((tamano), dtype=np.double)
         
         fcp=factor_peso_propio
-        ponderador=[fcp[0],fcp[1],fcp[2],fcp[0],fcp[1],fcp[2]] 
+        ponderador=[-fcp[0],-fcp[1],-fcp[2],-fcp[0],-fcp[1],-fcp[2]] 
         
         for barr in self.barras:
             
             ni,nj = barr.obtener_conectividad()
             k_chica= barr.obtener_rigidez(self)
-            f_chica= np.array([x*y for x,y in zip( barr.obtener_vector_de_cargas(self) ,ponderador)])
             
+            f_chica= np.array([x*y for x,y in zip( barr.obtener_vector_de_cargas(self) ,ponderador)])
             pos_i= [ni*3,ni*3+1, ni*3+2 ,nj*3,nj*3+1,nj*3+2]
                 
             for i in range(self.Ndimensiones*2):
