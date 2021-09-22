@@ -73,7 +73,7 @@ class Barra(object):
         T = np.array([[-cosθx,-cosθy,-cosθz,cosθx,cosθy,cosθz]])
         
         
-        ke=self.seccion.area()*E_acero/L*T.T@T
+        ke=self.seccion.area()*E_acero/L*(T.T@T)
         
         return ke
     
@@ -108,7 +108,7 @@ class Barra(object):
         ni=self.ni
         nj=self.nj
         u_e = np.array([u[3*ni],u[3*ni+1],u[3*ni+2],u[3*nj],u[3*nj+1],u[3*nj+2]])
-        se= A*E_acero/L*T*u_e
+        se= A*E_acero/L*T@u_e
         return se
 
 

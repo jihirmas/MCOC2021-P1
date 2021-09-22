@@ -90,10 +90,7 @@ class Reticulado(object):
             f_chica= barr.obtener_vector_de_cargas(self)
             if factor_peso_propio == [0.,0.,0.]:
                 f_chica = np.zeros(self.Ndimensiones*2)
-            
-
-            if self.Ndimensiones ==3:
-                pos_i= [ni*3,ni*3+1, ni*3+2 ,nj*3,nj*3+1,nj*3+2]
+            pos_i= [ni*3,ni*3+1, ni*3+2 ,nj*3,nj*3+1,nj*3+2]
                 
             for i in range(self.Ndimensiones*2):
                 p = pos_i[i]
@@ -103,6 +100,7 @@ class Reticulado(object):
                     self.K[p,q] += k_chica[i,j]
 
                 self.f[p] += f_chica[i]
+                
         for i in range(self.Nnodos):
             for car in self.cargas[i]:
                 if len(car) > 0:
@@ -208,6 +206,7 @@ class Reticulado(object):
         return fuerzas
 
 
+
     def obtener_factores_de_utilizacion(self, f):
         
         """Implementar"""	
@@ -247,4 +246,26 @@ class Reticulado(object):
         for j in range(len(BARRAS)):
             s += "     "+str(j)+" : "+"[ "+str(BARRAS[j].ni)+" "+str(BARRAS[j].nj)+" ]"+"\n"
         s += "\n"
+        s += "restricciones:\n"
+        for nodo in self.restricciones:
+            s += f"    {nodo} : {self.restricciones[nodo]}\n"
+        s += "\n\n"
+        
+        s += "cargas:\n"
+        for nodo in self.cargas:
+            s += f"    {nodo} : {self.cargas[nodo]}\n"
+        s += "\n\n"
+        if self.has_solution:
+            s += "desplazamientos:\n"
+            for n in range(self.Nnodos):
+                s += f"    {n} : ( {self.obtener_desplazamiento_nodal(n)}) \n "
+        s += "\n\n"
+
+        if self.has_solution:
+            f = self.obtener_fuerzas()
+            s += "fuerzas:\n"
+            for b in range(len(self.barras)):
+                s += f"    {b} : {f[b]}\n"
+        s += "\n"
+        s += f"Ndimensiones = {self.Ndimensiones}"
         return s
