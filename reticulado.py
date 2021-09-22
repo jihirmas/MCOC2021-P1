@@ -11,7 +11,7 @@ class Reticulado(object):
         self.xyz = np.zeros((Reticulado.__NNodosInit__,3), dtype=np.double)
         self.Nnodos = 0
         self.barras = []
-        self.Ndimensiones = 2
+        self.Ndimensiones = 3
         self.cargas = {}
         self.restricciones = {}
         
@@ -21,9 +21,8 @@ class Reticulado(object):
             self.xyz.resize((self.Nnodos+1,3))
         self.xyz[self.Nnodos,:] = [x, y, z]
         self.Nnodos += 1
-        if z != 0.:
-            self.Ndimensiones = 3
-            
+
+
 
 
 
@@ -83,19 +82,15 @@ class Reticulado(object):
             
             ni,nj = barr.obtener_conectividad()
             k_chica= barr.obtener_rigidez(self)
-            
-            
             peso_barra= barr.calcular_peso(self)
-
-            self.agregar_fuerza(ni,1,-peso_barra/2.0*factor_peso_propio[1])
-            self.agregar_fuerza(nj,1,-peso_barra/2.0*factor_peso_propio[1])
-            f_chica= barr.obtener_fuerza(self)
+            
+            
+            f_chica= barr.obtener_vector_de_cargas(self)
+            if factor_peso_propio == [0.,0.,0.]:
+                f_chica = np.zeros(self.Ndimensiones*2)
             
 
-            
-            if self.Ndimensiones ==2:
-                pos_i= [ni*2,ni*2+1,nj*2,nj*2+1]
-            elif self.Ndimensiones ==3:
+            if self.Ndimensiones ==3:
                 pos_i= [ni*3,ni*3+1, ni*3+2 ,nj*3,nj*3+1,nj*3+2]
                 
             for i in range(self.Ndimensiones*2):
@@ -104,7 +99,13 @@ class Reticulado(object):
                 for j in range(self.Ndimensiones*2):
                     q = pos_i[j]
                     self.K[p,q] += k_chica[i,j]
-                self.f[p] = f_chica[i]
+
+                self.f[p] += f_chica[i]
+        for i in self.cargas:
+            for car in self.cargas[i]:
+                self.f[i*3+car[0]] = car[1]
+                
+
 
 
 
