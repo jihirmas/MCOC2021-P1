@@ -78,16 +78,16 @@ class Reticulado(object):
         self.K=np.zeros((tamano,tamano),dtype=np.double)
         self.f=np.zeros(tamano)
         self.u = np.zeros((tamano), dtype=np.double)
+        
+        fcp=factor_peso_propio
+        ponderador=[-fcp[0],-fcp[1],-fcp[2],-fcp[0],-fcp[1],-fcp[2]] 
+        
         for barr in self.barras:
             
             ni,nj = barr.obtener_conectividad()
             k_chica= barr.obtener_rigidez(self)
-            peso_barra= barr.calcular_peso(self)
             
-            
-            f_chica= barr.obtener_vector_de_cargas(self)
-            if factor_peso_propio == [0.,0.,0.]:
-                f_chica = np.zeros(self.Ndimensiones*2)
+            f_chica= np.array([x*y for x,y in zip( barr.obtener_vector_de_cargas(self) ,ponderador)])
             pos_i= [ni*3,ni*3+1, ni*3+2 ,nj*3,nj*3+1,nj*3+2]
                 
             for i in range(self.Ndimensiones*2):
@@ -104,6 +104,7 @@ class Reticulado(object):
                 if len(car) > 0:
                     self.f[i*3+car[0]] = car[1]
         self.F = self.f
+        
     def resolver_sistema(self):
         
         # 0 : Aplicar restricciones
