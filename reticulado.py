@@ -27,7 +27,6 @@ class Reticulado(object):
 
 
 
-
     def agregar_barra(self, barra):
         self.barras.append(barra)
         
