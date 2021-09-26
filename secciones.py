@@ -175,6 +175,9 @@ class SeccionICHA(object):
     def inercia_yy(self):
         return self.IYY
 
+    def nombre(self):
+        return self.denominacion
+
     def __str__(self):
         s = ""
         if self.area() != 0:
