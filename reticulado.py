@@ -1,6 +1,7 @@
 
 import numpy as np
 from scipy.linalg import solve
+import h5py as h5
 
 class Reticulado(object):
     """Define un reticulado"""
@@ -175,7 +176,7 @@ class Reticulado(object):
         self.Kfc = Kfc
         self.Kcf = Kcf
         self.u[gdl_libres] = uf
-        lis = []
+        # lis = []
         # for i in range(self.__NNodosInit__):
         #     lis.append(i)
         # for i in range(self.Nnodos):
@@ -216,6 +217,52 @@ class Reticulado(object):
         """Implementar"""	
         
         return 0
+    
+    def guardar(self, nombre):
+        
+        metadatos =h5.File(nombre,"w")
+        
+        xyz_prima= np.zeros((self.Nnodos,3))
+        for i in range(self.Nnodos):
+            xyz_prima[i,:]=self.xyz[i,:]
+            
+        metadatos["xyz"]= xyz_prima
+        
+        barras_prima= np.zeros((len(self.barras),2),dtype=np.int32)
+        for i,barr in enumerate(self.barras):
+            barras_prima[i,:]= [barr.ni,barr.nj]
+        metadatos["barras"]= barras_prima
+        
+        secciones_prima = np.zeros((len(self.barras),1),dtype=h5.string_dtype())
+        for i,barr in enumerate(self.barras):
+            secciones_prima[i]= barr.seccion.__str__()
+        metadatos["secciones"]= secciones_prima
+        
+        restricciones_prima= []
+        restricciones_val  = []
+        for i,res in enumerate(self.restricciones):
+            for j in self.restricciones[res]:
+                restricciones_prima.append([i,j[0]])
+                restricciones_val .append(j[1])
+        restricciones_prima= np.array(restricciones_prima,dtype=h5.string_dtype())
+        restricciones_val= np.array(restricciones_val,dtype=h5.string_dtype())
+        
+        metadatos["restricciones"]= restricciones_prima
+        metadatos["restricciones_val"]= restricciones_val
+        
+        cargas_prima= []
+        cargas_val  = []
+        for i,car in enumerate(self.cargas):
+            for j in self.cargas[car]:
+                cargas_prima.append([i,j[0]])
+                cargas_val.append(j[1])
+        cargas_prima= np.array(cargas_prima,dtype=h5.string_dtype())
+        cargas_val= np.array(cargas_val,dtype=h5.string_dtype())
+        
+        metadatos["cargas_prima"]= cargas_prima
+        metadatos["cargas_val"]= cargas_val
+        
+        metadatos.close()
 
 
 
