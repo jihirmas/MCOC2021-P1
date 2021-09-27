@@ -122,6 +122,7 @@ class SeccionICHA(object):
                         iyy1 = 0
                         area1 = area[j]/1000000
                         peso1 = peso[j]
+                        break
                 except:
                     ixx1 = 0
                     iyy1 = 0
@@ -130,15 +131,13 @@ class SeccionICHA(object):
                     pass
             elif l == "Circulares Menores":
                 try:
-                    if str(x2[j]).find(".") != -1:
-                        s = "o"+str(int(x2[j])) +"×" +str(int(x4[j]))
-                    else:
-                        s = "o"+str(float(x2[j])) +"×" +str(float(x4[j]))
+                    s = "o"+str(float(x2[j])) +"×" +str(float(x4[j]))
                     if s == m:
                         ixx1 = ixx[j]
                         iyy1 = 0
                         area1 = area[j]/1000000
                         peso1 = peso[j]
+                        break
                 except:
                     ixx1 = 0
                     iyy1 = 0
@@ -147,13 +146,13 @@ class SeccionICHA(object):
                     pass
             else:
                 try:
-                    s = str(x1[j])+str(int(x2[j])) +"×" +str(int(x4[j]))+"×"+str(peso[j])
+                    s = str(x1[j])+str(int(x2[j])) +"×" +str(int(x4[j]))+"×"+str(float(peso[j]))
                     if s == m:
                         ixx1 = ixx[j]
                         iyy1 = iyy[j]
                         area1 = area[j]/1000000
                         peso1 = peso[j]
-                    break
+                        break
                 except:
                     ixx1 = 0
                     iyy1 = 0
