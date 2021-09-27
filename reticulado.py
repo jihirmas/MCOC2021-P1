@@ -1,7 +1,9 @@
-
 import numpy as np
 from scipy.linalg import solve
 import h5py as h5
+from barra import Barra
+from constantes import g_, ρ_acero, E_acero
+from secciones import SeccionICHA
 
 class Reticulado(object):
     """Define un reticulado"""
@@ -176,6 +178,7 @@ class Reticulado(object):
         self.Kfc = Kfc
         self.Kcf = Kcf
         self.u[gdl_libres] = uf
+        self.gdl_libres = gdl_libres
         # lis = []
         # for i in range(self.__NNodosInit__):
         #     lis.append(i)
@@ -231,11 +234,12 @@ class Reticulado(object):
         barras_prima= np.zeros((len(self.barras),2),dtype=np.int32)
         for i,barr in enumerate(self.barras):
             barras_prima[i,:]= [barr.ni,barr.nj]
+            
         metadatos["barras"]= barras_prima
         
         secciones_prima = np.zeros((len(self.barras),1),dtype=h5.string_dtype())
         for i,barr in enumerate(self.barras):
-            secciones_prima[i]= barr.seccion.__str__()
+            secciones_prima[i]= barr.seccion.nombre()
         metadatos["secciones"]= secciones_prima
         
         restricciones_prima= []
@@ -259,8 +263,35 @@ class Reticulado(object):
         cargas_prima= np.array(cargas_prima,dtype=h5.string_dtype())
         cargas_val= np.array(cargas_val,dtype=h5.string_dtype())
         
-        metadatos["cargas_prima"]= cargas_prima
+        metadatos["cargas"]= cargas_prima
         metadatos["cargas_val"]= cargas_val
+        
+        metadatos.close()
+
+    def abrir(self, nombre):
+        
+        metadatos =h5.File(nombre,"r")
+        
+        xyz_prima = metadatos["xyz"]
+        barras_prima = metadatos["barras"]
+        secciones_prima = metadatos["secciones"]
+        restricciones_prima = metadatos["restricciones"]
+        restricciones_val = metadatos["restricciones_val"]
+        cargas_prima = metadatos["cargas"]
+        cargas_val = metadatos["cargas_val"]
+
+        for i in xyz_prima:
+            self.agregar_nodo(i[0],i[1],i[2])                            
+        
+        for i, barr in enumerate(barras_prima):
+            self.agregar_barra(Barra(np.int32(barr[0]),np.int32(barr[1]),SeccionICHA(secciones_prima[i][0]),color=np.random.rand(3)))
+        
+        for i, res in enumerate(restricciones_prima):           
+            self.agregar_restriccion(np.int32(res[0]),np.int32(res[1]),np.int32(restricciones_val[i]))
+        
+        for i, car in enumerate(cargas_prima):           
+            self.agregar_fuerza( np.int32(car[0]),np.float32(car[1]),np.float32(cargas_val[i]))
+        
         
         metadatos.close()
 
