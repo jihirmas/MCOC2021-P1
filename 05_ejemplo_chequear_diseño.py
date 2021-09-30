@@ -45,7 +45,7 @@ ret.agregar_barra(Barra(1, 4, seccion_chica)) #5
 ret.agregar_barra(Barra(4, 2, seccion_grande)) #6
 ret.agregar_barra(Barra(5, 6, seccion_chica)) #7
 ret.agregar_barra(Barra(6, 7, seccion_chica)) #8
-ret.agregar_barra(Barra(5, 3, seccion_grande)) #9
+ret.agregar_barra(Barra(5, 3, seccion_grande)) #91
 ret.agregar_barra(Barra(3, 6, seccion_chica)) #10
 ret.agregar_barra(Barra(6, 4, seccion_chica)) #11
 ret.agregar_barra(Barra(4, 7, seccion_grande)) #12
