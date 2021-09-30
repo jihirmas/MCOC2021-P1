@@ -3,7 +3,7 @@ from barra import Barra
 from graficar3d import ver_reticulado_3d
 from constantes import *
 from math import sqrt
-from secciones1 import SeccionICHA
+from secciones import SeccionICHA
 
 import sys
 
@@ -14,7 +14,7 @@ ret = Reticulado()
 nombre_archivo = "05_ejemplo_chequear_diseño.h5"
 
 if len(sys.argv) > 1:
- 	nombre_archivo = sys.argv[1]
+	nombre_archivo = sys.argv[1]
 
 
 print(f"Abriendo: {nombre_archivo}" )

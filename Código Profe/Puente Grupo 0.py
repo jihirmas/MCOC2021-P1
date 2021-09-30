@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Sep 30 19:03:14 2021
+
+@author: jihir
+"""
+
 from reticulado import Reticulado
 from barra import Barra
 from graficar3d import ver_reticulado_3d
@@ -17,15 +24,14 @@ F = B*L*q
 ret = Reticulado()
 
 #Nodos
-ret.agregar_nodo(0    ,0,0)
-ret.agregar_nodo(L    ,0,0)
-ret.agregar_nodo(2*L  ,0,0)
-ret.agregar_nodo(L/2  ,B/2,sqrt(3)*H)
-ret.agregar_nodo(3*L/2,B/2,sqrt(3)*H)
-ret.agregar_nodo(0    ,B,0)
-ret.agregar_nodo(L    ,B,0)
-ret.agregar_nodo(2*L  ,B,0)
-# ret.agregar_nodo(22*L  ,56*B,0)
+# ret.agregar_nodo(0    ,0,0)
+# ret.agregar_nodo(L    ,0,0)
+# ret.agregar_nodo(2*L  ,0,0)
+# ret.agregar_nodo(L/2  ,B/2,sqrt(3)*H)
+# ret.agregar_nodo(3*L/2,B/2,sqrt(3)*H)
+# ret.agregar_nodo(0    ,B,0)
+# ret.agregar_nodo(L    ,B,0)
+# ret.agregar_nodo(2*L  ,B,0)
 
 
 
@@ -34,7 +40,7 @@ ret.agregar_nodo(2*L  ,B,0)
 
 seccion_grande = SeccionICHA("[]350x150x37.8", color="#3A8431")#, debug=True)
 seccion_chica = SeccionICHA("[]80x40x8.0", color="#A3500B")
-# print(seccion_chica, seccion_grande)
+
 
 #Crear y agregar las barras
 ret.agregar_barra(Barra(0, 1, seccion_chica)) #0

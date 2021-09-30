@@ -304,7 +304,7 @@ class Reticulado(object):
 
     def abrir(self, nombre):
         import h5py
-        from secciones import SeccionICHA
+        from secciones1 import SeccionICHA
         from barra import Barra
 
         fid = h5py.File(nombre, "r")

@@ -37,7 +37,7 @@ class Circular(object):
 class SeccionICHA(object):
     """Lee la tabla ICHA y genera una seccion apropiada"""
 
-    def __init__(self, denominacion, base_datos="Perfiles ICHA.xlsx", debug=False, color=rand(3)):
+    def __init__(self, denominacion, base_datos="Perfiles ICHA 1.xlsx", debug=False, color=rand(3)):
         super(SeccionICHA, self).__init__()
         self.denominacion = denominacion
         self.color = color  #color para la seccion 
