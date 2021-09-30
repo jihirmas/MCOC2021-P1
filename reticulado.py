@@ -74,7 +74,7 @@ class Reticulado(object):
         else:
             self.cargas[nodo].append([gdl, valor])
 
-    def ensamblar_sistema(self, factor_peso_propio=0.):
+    def ensamblar_sistema(self, factor_peso_propio=[0., 0., 0.],factor_cargas=0.):
         if factor_peso_propio==0.:
             factor_peso_propio=[0.,0.,0.]
         tamano=self.Nnodos*self.Ndimensiones
@@ -169,7 +169,6 @@ class Reticulado(object):
         fc = self.f[gdl_restringidos]
 
         # Solucionar Kff uf = ff
-        
         uf = solve(Kff, ff - Kfc @ uc)
         R = Kcf@uf+Kcc@uc-fc
         self.R = R
@@ -216,10 +215,9 @@ class Reticulado(object):
 
 
     def rediseñar(self, Fu, ϕ=0.9):
-        
-        """Implementar"""	
-        
-        return 0
+        for i,b in enumerate(self.barras):
+           print(f"\n\nBarra {i}")
+           b.rediseñar(Fu[i], self, ϕ)
     
     def guardar(self, nombre):
         

@@ -32,7 +32,7 @@ ret.agregar_nodo(2*L  ,B,0)
 #Secciones de las barras
 
 seccion_grande = SeccionICHA("[]350x150x37.8", color="#3A8431")#, debug=True)
-seccion_chica = SeccionICHA("[]80x40x8", color="#A3500B")
+seccion_chica = SeccionICHA("[]80x40x8.0", color="#A3500B")
 
 
 #Crear y agregar las barras
