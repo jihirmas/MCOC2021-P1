@@ -61,13 +61,15 @@ ret.agregar_barra(Barra(1, 7, seccion_chica)) #15
 
 #Crear restricciones
 for nodo in [0,5]:
-	ret.agregar_restriccion(nodo, 0, 0)
-	ret.agregar_restriccion(nodo, 1, 0)
-	ret.agregar_restriccion(nodo, 2, 0)
+    print(nodo)
+    ret.agregar_restriccion(nodo, 0, 0)
+    ret.agregar_restriccion(nodo, 1, 0)
+    ret.agregar_restriccion(nodo, 2, 0)
 
 for nodo in [2,7]:
-	ret.agregar_restriccion(nodo, 1, 0)
-	ret.agregar_restriccion(nodo, 2, 0)
+    print(nodo)
+    ret.agregar_restriccion(nodo, 1, 0)
+    ret.agregar_restriccion(nodo, 2, 0)
 
 
 

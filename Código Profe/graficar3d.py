@@ -18,7 +18,7 @@ from mpl_toolkits.mplot3d import Axes3D
 #Opciones para nodos
 opc_nodos_default = {
     "marcador_nodos": "o", 
-    "ver_numeros_de_nodos": True,
+    "ver_numeros_de_nodos": 0,
     "color_nodos": "k",
     "color_borde_nodos": [0.7,0.7,0.7],
     "usar_posicion_deformada": False,
@@ -32,7 +32,7 @@ opc_barras_default = {
     "estilo_barras" : "-",
     "color_barras" : [138/255,89/255,0/255],#8F652F
     "grosor_barras" : 2,
-    "ver_numeros_de_barras" : True,
+    "ver_numeros_de_barras" : 0,
     "color_barras_por_dato" : False,
     "ver_dato_en_barras" : False,
     "formato_dato_en_barras" : "4.2f",
