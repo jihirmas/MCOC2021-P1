@@ -49,9 +49,22 @@ for x in lista_nodos:
     else:
         pass
     cont += 1
-#Secciones de las barras
 
-seccion_grande = SeccionICHA("[]350x150x37.8", color="#3A8431")#, debug=True)
+ret.agregar_nodo(l1[17][0],0,l1[17][1])
+ret.agregar_nodo(l1[17][0],4,l1[17][1])
+ret.agregar_nodo(l1[18][0],0,l1[18][1])
+ret.agregar_nodo(l1[18][0],4,l1[18][1])
+ret.agregar_nodo(l1[17][0],0,l1[17][1]+6)
+ret.agregar_nodo(l1[17][0],4,l1[17][1]+6)
+ret.agregar_nodo(l1[18][0],0,l1[18][1]+6-(l1[18][1]-l1[17][1]))
+ret.agregar_nodo(l1[18][0],4,l1[18][1]+6-(l1[18][1]-l1[17][1]))
+ret.agregar_nodo(l1[17][0],0,l1[17][1]+6+6)
+ret.agregar_nodo(l1[17][0],4,l1[17][1]+6+6)
+ret.agregar_nodo(l1[18][0],0,l1[18][1]+12-(l1[18][1]-l1[17][1]))
+ret.agregar_nodo(l1[18][0],4,l1[18][1]+12-(l1[18][1]-l1[17][1]))
+#Secciones de las barras
+nodostodos = ret.obtener_nodos()
+seccion_grande = SeccionICHA("[]300x150x33.9", color="#3A8431")#, debug=True)
 seccion_chica = SeccionICHA("[]80x40x8.0", color="#A3500B")
 
 
@@ -77,6 +90,56 @@ for i in range(20):
 for i in range(20):
     ret.agregar_barra(Barra(0+i, 42+i, seccion_grande)) #0
     ret.agregar_barra(Barra(41+i,1+i, seccion_grande)) #0
+ret.agregar_barra(Barra(67,69, seccion_grande))
+ret.agregar_barra(Barra(69,68, seccion_grande))
+ret.agregar_barra(Barra(68,66, seccion_grande))
+ret.agregar_barra(Barra(66,67, seccion_grande))
+ret.agregar_barra(Barra(66,63, seccion_grande))
+ret.agregar_barra(Barra(67,62, seccion_grande))
+ret.agregar_barra(Barra(66,64, seccion_grande))
+ret.agregar_barra(Barra(68,62, seccion_grande))
+ret.agregar_barra(Barra(69,64, seccion_grande))
+ret.agregar_barra(Barra(68,65, seccion_grande))
+ret.agregar_barra(Barra(69,63, seccion_grande))
+ret.agregar_barra(Barra(67,65, seccion_grande))
+ret.agregar_barra(Barra(68,64, seccion_grande))
+ret.agregar_barra(Barra(69,65, seccion_grande))
+ret.agregar_barra(Barra(67,63, seccion_grande))
+ret.agregar_barra(Barra(66,62, seccion_grande))
+
+ret.agregar_barra(Barra(70,67, seccion_grande))
+ret.agregar_barra(Barra(71,66, seccion_grande))
+ret.agregar_barra(Barra(70,68, seccion_grande))
+ret.agregar_barra(Barra(72,66, seccion_grande))
+ret.agregar_barra(Barra(72,69, seccion_grande))
+ret.agregar_barra(Barra(73,68, seccion_grande))
+ret.agregar_barra(Barra(73,67, seccion_grande))
+ret.agregar_barra(Barra(71,69, seccion_grande))
+ret.agregar_barra(Barra(70,71, seccion_grande))
+ret.agregar_barra(Barra(71,73, seccion_grande))
+ret.agregar_barra(Barra(73,72, seccion_grande))
+ret.agregar_barra(Barra(72,70, seccion_grande))
+ret.agregar_barra(Barra(70,66, seccion_grande))
+ret.agregar_barra(Barra(72,68, seccion_grande))
+ret.agregar_barra(Barra(73,69, seccion_grande))
+ret.agregar_barra(Barra(71,67, seccion_grande))
+
+ret.agregar_barra(Barra(8,70, seccion_grande))
+ret.agregar_barra(Barra(8,71, seccion_grande))
+ret.agregar_barra(Barra(70,49, seccion_grande))
+ret.agregar_barra(Barra(49,71, seccion_grande))
+ret.agregar_barra(Barra(9,70, seccion_grande))
+ret.agregar_barra(Barra(9,71, seccion_grande))
+ret.agregar_barra(Barra(50,71, seccion_grande))
+ret.agregar_barra(Barra(50,70, seccion_grande))
+ret.agregar_barra(Barra(9,72, seccion_grande))
+ret.agregar_barra(Barra(9,73, seccion_grande))
+ret.agregar_barra(Barra(50,72, seccion_grande))
+ret.agregar_barra(Barra(50,73, seccion_grande))
+ret.agregar_barra(Barra(10,72, seccion_grande))
+ret.agregar_barra(Barra(10,73, seccion_grande))
+ret.agregar_barra(Barra(51,72, seccion_grande))
+ret.agregar_barra(Barra(51,73, seccion_grande))
 
 # Crear restricciones
 for nodo in [0,41]:
@@ -84,16 +147,19 @@ for nodo in [0,41]:
  	ret.agregar_restriccion(nodo, 1, 0)
  	ret.agregar_restriccion(nodo, 2, 0)
 
-for nodo in [20,61]:
+for nodo in [20,61,62,63,64,65]:
     ret.agregar_restriccion(nodo, 0, 0)
     ret.agregar_restriccion(nodo, 1, 0)
     ret.agregar_restriccion(nodo, 2, 0)
     
-ret.agregar_restriccion(31, 2, 0)
-ret.agregar_restriccion(31, 1, 0)
-ret.agregar_restriccion(32, 2, 0)
-ret.agregar_restriccion(32, 1, 0)
-
+# ret.agregar_restriccion(10, 2, 0)
+# ret.agregar_restriccion(10, 1, 0)
+# ret.agregar_restriccion(11, 2, 0)
+# ret.agregar_restriccion(11, 1, 0)
+# ret.agregar_restriccion(52, 2, 0)
+# ret.agregar_restriccion(52, 1, 0)
+# ret.agregar_restriccion(51, 2, 0)
+# ret.agregar_restriccion(51, 1, 0)
 
 #Visualizar y comprobar las secciones
 opciones_barras = {
