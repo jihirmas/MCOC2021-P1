@@ -163,7 +163,7 @@ class SeccionICHA(object):
     def __str__(self):
         s = f"Seccion ICHA {self.denominacion}\n"
         s += f"  Area : {self.A}\n"
-        s += f"  peso : {self.peso}\n"
+        s += f"  peso : {self.w}\n"
         s += f"  Ixx  : {self.Ixx}\n"
         s += f"  Iyy  : {self.Iyy}\n"
         return s

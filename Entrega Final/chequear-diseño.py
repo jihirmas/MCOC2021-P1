@@ -11,7 +11,7 @@ import sys
 ret = Reticulado()
 
 
-nombre_archivo = "Puente Grupo 0.h5"
+nombre_archivo = "Puente Grupo 0 final.h5"
 # nombre_archivo = "05_ejemplo_chequear_diseño.h5"
 
 if len(sys.argv) > 1:

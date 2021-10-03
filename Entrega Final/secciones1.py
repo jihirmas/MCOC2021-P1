@@ -49,14 +49,14 @@ class SeccionICHA(object):
         self.IXX = IXX
         self.IYY = IYY
         
-    def cambiarx(self,s):
-        l = ""
-        for i in range(len(s)):
-            if s[i] == "x":
-                l+= "×"
-            else:
-                l+=s[i]
-        return l
+    # def cambiarx(self,s):
+    #     l = ""
+    #     for i in range(len(s)):
+    #         if s[i] == "x":
+    #             l+= "×"
+    #         else:
+    #             l+=s[i]
+    #     return l
     
     def definir_seccion(self,s):
         l = ""
@@ -76,7 +76,7 @@ class SeccionICHA(object):
     def obtener_valores(self):
         df = pd.ExcelFile(self.base_datos)
         m = self.denominacion
-        m = self.cambiarx(m)
+        # m = self.cambiarx(m)
         l = self.definir_seccion(m)
         if l == "Circulares Mayores" or l == "Circulares Menores":
             df1 = df.parse(l,skiprows=10)
